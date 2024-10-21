@@ -13,6 +13,7 @@ import { ExperienceRoute } from '../modules/experience/experience.route';
 import { TechnologyRoute } from '../modules/technology/technology.route';
 import { ProjectRoute } from '../modules/project/project.route';
 import { BlogRoute } from '../modules/blog/blog.route';
+import { SkillRoute } from '../modules/skill/skill.route';
 
 const router = Router();
 
@@ -67,6 +68,10 @@ const moduleRoutes = [
   {
     path: '/blogs',
     route: BlogRoute,
+  },
+  {
+    path: '/skills',
+    route: SkillRoute,
   },
 ];
 
