@@ -10,6 +10,7 @@ import { CommentRoute } from '../modules/comment/comment.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { PaymentRoute } from '../modules/payment/payment.route';
 import { ExperienceRoute } from '../modules/experience/experience.route';
+import { TechnologyRoute } from '../modules/technology/technology.route';
 
 const router = Router();
 
@@ -52,6 +53,10 @@ const moduleRoutes = [
   {
     path: '/experiences',
     route: ExperienceRoute,
+  },
+  {
+    path: '/technologies',
+    route: TechnologyRoute,
   },
 ];
 
