@@ -15,11 +15,12 @@ router.post(
 );
 router.get('/', auth(USER_ROLE.admin), CommentController.getAllComments);
 router.patch('/:id', auth(USER_ROLE.admin), CommentController.updateCommentStatus);
-router.get(
-  '/recipe/:recipeId',
-  auth(USER_ROLE.user, USER_ROLE.admin),
-  CommentController.getCommentBasedOnRecipe,
-);
+// router.get(
+//   '/recipe/:recipeId',
+//   auth(USER_ROLE.user, USER_ROLE.admin),
+//   CommentController.getCommentBasedOnRecipe,
+// );
+
 router.delete('/:id', auth(USER_ROLE.admin), CommentController.deleteComment);
 
 export const CommentRoute = router;

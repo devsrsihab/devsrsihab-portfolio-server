@@ -1,11 +1,7 @@
 import { Router } from 'express';
 import { UserRoute } from '../modules/user/user.route';
 import { AdminRoute } from '../modules/admin/admin.route';
-
 import { AuthRoute } from '../modules/auth/auth.route';
-
-import { RecipeRoute } from '../modules/recipe/recipe.route';
-import { RatingRoute } from '../modules/rating/rating.route';
 import { CommentRoute } from '../modules/comment/comment.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { PaymentRoute } from '../modules/payment/payment.route';
@@ -31,15 +27,6 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: AuthRoute,
-  },
-
-  {
-    path: '/recipes',
-    route: RecipeRoute,
-  },
-  {
-    path: '/ratings',
-    route: RatingRoute,
   },
   {
     path: '/comments',
