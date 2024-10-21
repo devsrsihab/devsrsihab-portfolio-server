@@ -1,143 +1,76 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RecipeServices } from './experience.service';
+import { ExperienceServices } from './experience.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 
-// create recipe controller
-const createRecipe = catchAsync(async (req, res) => {
-  const { email } = req.user;
+// create experience controller
+const createExperience = catchAsync(async (req, res) => {
   const payload = req.body;
-  const result = await RecipeServices.createRecipe(email, payload);
+  const result = await ExperienceServices.createExperienceToDB(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Recipe created successfully',
+    message: 'Experience created successfully',
     data: result,
   });
 });
 
-// get all recipe conroller
-const getAllRecipes = catchAsync(async (req, res) => {
-  const user = req.user;
-  const query = req.query;
-  const result = await RecipeServices.getAllRecipesFromDB(user, query);
+// get all experiences controller
+const getAllExperiences = catchAsync(async (req, res) => {
+  const result = await ExperienceServices.getAllExperienceFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'recipe get successfully',
-    meta: result.meta,
-    data: result.result,
-  });
-});
-
-// get single recipe controller
-const getSingleRecipe = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await RecipeServices.getSingleRecipeFromDB(id);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'single recipe get successfully',
-    data: result || 'no data found',
-  });
-});
-
-// update recipe controller
-const updateRecipe = catchAsync(async (req, res) => {
-  const user = req.user;
-  const { id } = req.params;
-  const result = await RecipeServices.updateRecipeToDB(user, id, req.body);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'recipe updated successfully',
-    data: result || 'no data found',
-  });
-});
-
-// upvote recipe controller
-const upvoteRecipe = catchAsync(async (req, res) => {
-  const user = req.user;
-  const { id } = req.params;
-  const result = await RecipeServices.upvoteRecipe(user, id);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'recipe upvoted successfully',
+    message: 'Experiences retrieved successfully',
     data: result,
   });
 });
 
-// downvote recipe controller
-const downvoteRecipe = catchAsync(async (req, res) => {
-  const user = req.user;
+// get single experience controller
+const getSingleExperience = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await RecipeServices.downvoteRecipe(user, id);
+  const result = await ExperienceServices.getSingleExperienceFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'recipe downvoted successfully',
+    message: 'Single experience retrieved successfully',
+    data: result || 'No data found',
+  });
+});
+
+// update experience controller
+const updateExperience = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await ExperienceServices.updateExperienceToDB(id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Experience updated successfully',
+    data: result || 'No data found',
+  });
+});
+
+// delete experience controller
+const deleteExperience = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await ExperienceServices.deleteExperienceFromDB(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Experience deleted successfully',
     data: result,
   });
 });
 
-// delte single recipe controller
-const deleteRecipe = catchAsync(async (req, res) => {
-  const user = req.user;
-  const { id } = req.params;
-  const result = await RecipeServices.deleteRecipeFromDB(user, id);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'recipe deleted successfully',
-    data: result,
-  });
-});
-
-// get user recipes controller
-const getUserRecipes = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const query = req.query;
-  const result = await RecipeServices.getUserRecipesFromDB(id, query);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'user recipes get successfully',
-    data: result.result,
-    meta: result.meta,
-  });
-});
-
-// get recipe feeds controller
-const getRecipeFeeds = catchAsync(async (req, res) => {
-  const query = req.query;
-  const result = await RecipeServices.getRecipeFeedsFromDB(query);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'recipe feeds get successfully',
-    data: result.result,
-    meta: result.meta,
-  });
-});
-
-export const RecipeController = {
-  getAllRecipes,
-  createRecipe,
-  getSingleRecipe,
-  updateRecipe,
-  deleteRecipe,
-  upvoteRecipe,
-  downvoteRecipe,
-  getUserRecipes,
-  getRecipeFeeds,
+export const ExperienceController = {
+  getAllExperiences,
+  createExperience,
+  getSingleExperience,
+  updateExperience,
+  deleteExperience,
 };

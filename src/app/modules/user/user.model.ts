@@ -81,7 +81,7 @@ const userSchema = new Schema<TUser, UserModel>(
     status: {
       type: String,
       enum: USER_STATUS,
-      default: 'active', // Default to 'pending' status after registration
+      default: 'active',
       required: true,
     },
     isDeleted: {

@@ -21,7 +21,7 @@ const experienceSchema = new Schema<TExperience>(
     },
     companyImage: {
       type: String,
-      required: [true, 'company image is required'],
+      default: 'https://placehold.co/385x345/png',
       trim: true,
     },
     startDate: {
