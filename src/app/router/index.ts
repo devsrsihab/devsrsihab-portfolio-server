@@ -12,6 +12,7 @@ import { PaymentRoute } from '../modules/payment/payment.route';
 import { ExperienceRoute } from '../modules/experience/experience.route';
 import { TechnologyRoute } from '../modules/technology/technology.route';
 import { ProjectRoute } from '../modules/project/project.route';
+import { BlogRoute } from '../modules/blog/blog.route';
 
 const router = Router();
 
@@ -62,6 +63,10 @@ const moduleRoutes = [
   {
     path: '/projects',
     route: ProjectRoute,
+  },
+  {
+    path: '/blogs',
+    route: BlogRoute,
   },
 ];
 

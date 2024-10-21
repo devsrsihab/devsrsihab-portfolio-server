@@ -1,6 +1,4 @@
 import httpStatus from 'http-status';
-import { CategorySearchableFields } from './category.constant';
-import QueryBuilder from '../../builder/QueryBuilder';
 import { Category } from './category.model';
 import { TCategory } from './category.interface';
 import AppError from '../../errors/appError';
@@ -10,21 +8,14 @@ const createCategory = async (category: TCategory) => {
   return result;
 };
 
-const getAllCategories = async (query: Record<string, unknown>) => {
-  const s = new QueryBuilder(Category.find({ isDeleted: false }), query)
-    .search(CategorySearchableFields)
-    .filter()
-    .sort()
-    .paginate()
-    .fields();
-  const result = await s.modelQuery;
+const getAllCategories = async () => {
+  const result = await Category.find().sort({ createdAt: -1 }).populate('blogs', 'title image');
   return result;
 };
 
 const getCategoryById = async (categoryId: string): Promise<TCategory | null> => {
   const isCategoryExists = await Category.findOne({
     _id: categoryId,
-    isDeleted: false,
   });
 
   if (!isCategoryExists) {
@@ -33,8 +24,7 @@ const getCategoryById = async (categoryId: string): Promise<TCategory | null> =>
 
   const category = await Category.findOne({
     _id: categoryId,
-    isDeleted: false,
-  }).exec();
+  }).populate('blogs', 'title image');
   return category;
 };
 
@@ -45,7 +35,7 @@ const updateCategory = async (id: string, updateData: Partial<TCategory>) => {
   });
 
   if (!isCategoryExists) {
-    throw new AppError(httpStatus.NOT_FOUND, ' Category not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'Category not found!');
   }
 
   const category = await Category.findByIdAndUpdate(id, updateData, {

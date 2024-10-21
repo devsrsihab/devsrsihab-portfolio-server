@@ -1,6 +1,8 @@
-// Type for the input data when creating/updating a category
+import { Types } from 'mongoose';
+
 export type TCategory = {
   name: string;
-  recipeCount?: number;
+  blogs: Types.ObjectId[];
+  blogCount?: number;
   isDeleted: boolean;
 };
