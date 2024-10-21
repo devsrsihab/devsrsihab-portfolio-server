@@ -1,22 +1,27 @@
 import { z } from 'zod';
 
-// Experience Schema
-export const createExperienceSchema = z.object({
+// Project Schema
+export const createProjectSchema = z.object({
   body: z.object({
     title: z.string().trim().nonempty('Title is required'),
-    description: z.string().trim().nonempty('Description is required'),
-    company: z.string().trim().nonempty('Company is required'),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
+    image: z.string().nonempty('Image is required'),
+    description: z.string().trim().optional(),
+    content: z.string().nonempty('Content is required'),
+    technologies: z.string().nonempty('Technologies ID is required'),
+    frontendGithubLink: z.string().url('Invalid frontend GitHub link'),
+    backendGithubLink: z.string().url('Invalid backend GitHub link'),
+    frontendLiveLink: z.string().url('Invalid frontend live link'),
+    backendLiveLink: z.string().url('Invalid backend live link'),
+    isFeatured: z.boolean().optional().default(false),
   }),
 });
 
-// Experience Update Schema
-export const updateExperienceSchema = z.object({
-  body: createExperienceSchema.shape.body.partial(),
+// Project Update Schema
+export const updateProjectSchema = z.object({
+  body: createProjectSchema.shape.body.partial(),
 });
 
-export const ExperienceValidation = {
-  createExperienceSchema,
-  updateExperienceSchema,
+export const ProjectValidation = {
+  createProjectSchema,
+  updateProjectSchema,
 };

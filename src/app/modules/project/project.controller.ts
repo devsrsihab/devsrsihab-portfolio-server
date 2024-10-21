@@ -1,63 +1,63 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExperienceServices } from './project.service';
+import { ProjectServices } from './project.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 
-// create experience controller
-const createExperience = catchAsync(async (req, res) => {
+// create project controller
+const createProject = catchAsync(async (req, res) => {
   const payload = req.body;
-  const result = await ExperienceServices.createExperienceToDB(payload);
+  const result = await ProjectServices.createProjectToDB(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experience created successfully',
+    message: 'Project created successfully',
     data: result,
   });
 });
 
-// get all experiences controller
-const getAllExperiences = catchAsync(async (req, res) => {
-  const result = await ExperienceServices.getAllExperienceFromDB();
+// get all projects controller
+const getAllProjects = catchAsync(async (req, res) => {
+  const result = await ProjectServices.getAllProjectFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experiences retrieved successfully',
+    message: 'Projects retrieved successfully',
     data: result,
   });
 });
 
-// get single experience controller
-const getSingleExperience = catchAsync(async (req, res) => {
+// get single project controller
+const getSingleProject = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await ExperienceServices.getSingleExperienceFromDB(id);
+  const result = await ProjectServices.getSingleProjectFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Single experience retrieved successfully',
+    message: 'Single project retrieved successfully',
     data: result || 'No data found',
   });
 });
 
 // update experience controller
-const updateExperience = catchAsync(async (req, res) => {
+const updateProject = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await ExperienceServices.updateExperienceToDB(id, req.body);
+  const result = await ProjectServices.updateProjectToDB(id, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experience updated successfully',
+    message: 'Project updated successfully',
     data: result || 'No data found',
   });
 });
 
 // delete experience controller
-const deleteExperience = catchAsync(async (req, res) => {
+const deleteProject = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await ExperienceServices.deleteExperienceFromDB(id);
+  const result = await ProjectServices.deleteProjectFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -67,10 +67,10 @@ const deleteExperience = catchAsync(async (req, res) => {
   });
 });
 
-export const ExperienceController = {
-  getAllExperiences,
-  createExperience,
-  getSingleExperience,
-  updateExperience,
-  deleteExperience,
+export const ProjectController = {
+  getAllProjects,
+  createProject,
+  getSingleProject,
+  updateProject,
+  deleteProject,
 };

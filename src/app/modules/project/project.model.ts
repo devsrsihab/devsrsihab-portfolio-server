@@ -1,36 +1,53 @@
 import { model, Schema } from 'mongoose';
-import { TExperience } from './project.interface';
+import { TProject } from './project.interface';
 
 // recipe schema
-const experienceSchema = new Schema<TExperience>(
+const projectSchema = new Schema<TProject>(
   {
     title: {
       type: String,
       required: [true, 'title is required'],
       trim: true,
     },
+    image: {
+      type: String,
+      required: [true, 'image is required'],
+    },
     description: {
       type: String,
       required: [true, 'description is required'],
       trim: true,
     },
-    company: {
+    content: {
       type: String,
-      required: [true, 'company is required'],
-      trim: true,
+      required: [true, 'content is required'],
     },
-    companyImage: {
+    technologies: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Technology',
+        required: [true, 'technologies are required'],
+      },
+    ],
+    frontendGithubLink: {
       type: String,
-      default: 'https://placehold.co/385x345/png',
-      trim: true,
+      required: [true, 'frontend GitHub link is required'],
     },
-    startDate: {
-      type: Date,
-      required: [true, 'start date is required'],
+    backendGithubLink: {
+      type: String,
+      required: [true, 'backend GitHub link is required'],
     },
-    endDate: {
-      type: Date,
-      required: [true, 'end date is required'],
+    frontendLiveLink: {
+      type: String,
+      required: [true, 'frontend live link is required'],
+    },
+    backendLiveLink: {
+      type: String,
+      required: [true, 'backend live link is required'],
+    },
+    isFeatured: {
+      type: Boolean,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
@@ -41,21 +58,21 @@ const experienceSchema = new Schema<TExperience>(
 );
 
 // query middleware show only where isDelete false
-experienceSchema.pre('find', function (next) {
+projectSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
 
 // query middlware for findone
-experienceSchema.pre('findOne', function (next) {
+projectSchema.pre('findOne', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
 
 // aggregate middleware
-experienceSchema.pre('aggregate', function () {
+projectSchema.pre('aggregate', function () {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
 });
 
 // recipe model
-export const Experience = model<TExperience>('Experience', experienceSchema);
+export const Project = model<TProject>('Project', projectSchema);

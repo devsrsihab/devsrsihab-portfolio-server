@@ -11,6 +11,7 @@ import { CategoryRoutes } from '../modules/category/category.route';
 import { PaymentRoute } from '../modules/payment/payment.route';
 import { ExperienceRoute } from '../modules/experience/experience.route';
 import { TechnologyRoute } from '../modules/technology/technology.route';
+import { ProjectRoute } from '../modules/project/project.route';
 
 const router = Router();
 
@@ -57,6 +58,10 @@ const moduleRoutes = [
   {
     path: '/technologies',
     route: TechnologyRoute,
+  },
+  {
+    path: '/projects',
+    route: ProjectRoute,
   },
 ];
 

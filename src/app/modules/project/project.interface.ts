@@ -1,9 +1,15 @@
+import { Types } from 'mongoose';
+
 export type TProject = {
   title: string;
+  image: string;
   description: string;
-  company: string;
-  companyImage: string;
-  startDate: Date;
-  endDate: Date;
+  content: string;
+  technologies: Types.ObjectId[];
+  frontendGithubLink: string;
+  backendGithubLink: string;
+  frontendLiveLink: string;
+  backendLiveLink: string;
+  isFeatured: boolean;
   isDeleted: boolean;
 };
